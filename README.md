@@ -2,7 +2,8 @@
 
 ## jenkins-sencha-cmd
 
-Includes
+Includes:
+
     - jenkins
     - jenkins plugins
         + git plugin
