@@ -7,7 +7,7 @@ Includes:
     - jenkins
     - jenkins plugins
         + git plugin
-    - Sencha Cmd 6.0.2.14
+    - Sencha Cmd 6.1.3.42
 
 
 ### Build Image
