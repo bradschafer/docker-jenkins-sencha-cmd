@@ -7,19 +7,22 @@ Includes:
     - jenkins
     - jenkins plugins
         + git plugin
-    - Sencha Cmd 6.1.3.42
+    - Sencha Cmd 6.5.0.180
 
 
 ### Build Image
-
 ```
 cd [repo-clone]/jenkins-sencha-cmd
-docker build -t elmasse/jenkins-sencha-cmd .
+docker build -t jenkins-sencha-cmd .
 ```
 
 ### Run Image
-
 ```
-docker run --name=jenkins-sencha-cmd -p 8080:8080 -p 50000:50000 -d elmasse/jenkins-sencha-cmd
+docker run --name=jenkins-sencha-cmd -p 8080:8080 -p 50000:50000 -d jenkins-sencha-cmd
 ```
 
+#### Inital Admin Password
+```
+docker cp [containerid]:/var/jenkins_home ./dump
+```
+Then retrieve the password by opening the /dump/secrets/initialAdminPassord file.

@@ -4,26 +4,26 @@ MAINTAINER Maximiliano Fierro <elmasse@gmail.com>
 
 USER root
 
+
 # Install openjdk8 and ruby
 RUN apt-get update && \
-    apt-get install -y openjdk-8-jre ruby2.0 unzip
+    apt-get install -y openjdk-8-jre unzip
 
-#6.1.3.42
-#6.0.2.14
-#6.0.0.202
+#Accept arguments for the command version 
+ARG cmd=6.5.0.180
 
-RUN curl -o /cmd.sh.zip http://cdn.sencha.com/cmd/6.1.3.42/no-jre/SenchaCmd-6.1.3.42-linux-amd64.sh.zip && \
-    unzip -p /cmd.sh.zip > /cmd-install.sh && \
-    chmod +x /cmd-install.sh && \
-    /cmd-install.sh -q -dir "/opt/sencha-cmd/Cmd/6.1.3.42" && \
-    rm /cmd-install.sh /cmd.sh.zip
+
+RUN wget http://cdn.sencha.com/cmd/${cmd}/no-jre/SenchaCmd-${cmd}-linux-amd64.sh.zip -O senchacmd.zip && unzip senchacmd.zip && rm senchacmd.zip && chmod +x SenchaCmd-${cmd}-linux-amd64.sh
+RUN ./SenchaCmd-${cmd}-linux-amd64.sh -q -dir /opt/Sencha/Cmd/${cmd} -Dall=true
+RUN rm SenchaCmd-${cmd}-linux-amd64.sh && chmod +x /opt/Sencha/Cmd/${cmd}/sencha
+
 
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN chown -R jenkins:jenkins /opt/sencha-cmd
+RUN chown -R jenkins:jenkins /opt/Sencha/Cmd/${cmd}/sencha
 
-ENV PATH /opt/sencha-cmd/Cmd/6.1.3.42:$PATH
+ENV PATH /opt/Sencha/Cmd/${cmd}/sencha:$PATH
 
 USER jenkins
 
